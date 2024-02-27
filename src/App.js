@@ -5,20 +5,18 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  let post = '강남 우동 맛집';
-  let [arr, bb] = useState(['남자 코트 추천', '안녕', '하세요']);
+  let [arr, bb] = useState(['ㄷ남자 코트 추천', 'ㄱ안녕', 'ㄴ하세요']);
   let [좋아요, 좋아요변경] = useState(0);
 
   const 함수 = () => {
     console.log(1);
     좋아요변경(좋아요+1);
   }
-  let copy = arr;
   
   // state는 바꾸려는값이 이전과 같으면 재렌더링을 하지않음
-  // copy[0] = '여자 코트 추천'; 
-  // const arr = [...copy];
-  // console.log(copy);
+  // 따라서 새 배열을 생성하고 ...전개연산자로 복사해야해서 사용해야함
+  const copy = [...arr];
+  copy[0] = 'ㄷ여자 코트 추천'; 
 
   return (
     <div className="App">
@@ -27,7 +25,7 @@ function App() {
       </div>      
 
       <div className="list">
-        <h4>{ copy[0] } <span onClick={ 함수 }>👍</span> {좋아요} </h4>
+        <h4>{ arr[0] } <span onClick={ 함수 }>👍</span> {좋아요} </h4>
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
@@ -39,14 +37,41 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       
-      <button onClick={ () => {bb(['바보','ㄴㄴ','jj'])} }>버튼임</button>
+      <button onClick={ ()=>{ bb(copy)} }> 수정버튼 </button>
       <button onClick={ ()=>{ 
-      let copy = [...arr];
-      copy[0] = '여자 코트 추천';
-      bb(copy)
-    } }> 수정버튼 </button>
+        let copy = [...arr];
+        copy.sort();
+        bb(copy)}}> 정렬버튼 </button>
+
+      <Modal></Modal>
+      <Test/>
+
+      {}
+
+
     </div>
   );
 }
+
+const Modal = () => {
+  return(
+    <div className="modal">
+        <h4>제목</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+    </div>
+  )
+}
+const Test = () => {
+  return(
+    <>
+      <div>
+        <h3>컴포넌트 테스트입니다.</h3>
+      </div>
+    </>
+  )
+}
+
+
 
 export default App;
